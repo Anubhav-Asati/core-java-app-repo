@@ -1,4 +1,4 @@
-package com.sapient.aem.bean;
+package com.sapient.aem.service;
 
 public enum insuranceScheme {
 	

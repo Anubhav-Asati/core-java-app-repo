@@ -11,58 +11,67 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public Employee getEmpDetails() {
-
-		String designation;
-		String insuranceScheme="";
-		System.out.println("Enter employee id:");
-		int id=sc.nextInt();
-		System.out.println("Enter employee name");
-		String name=sc.next();
-		System.out.println("Enter employee Salary");
-		double salary=sc.nextDouble();
-		if(salary<5000) {
-			designation="clerk";
+		
+		try {
+			Employee emp=new Employee();
+			System.out.println("Enter employee id:");
+			emp.setId(Integer.parseInt(sc.nextLine()));
+			System.out.println("Enter employee name");
+			emp.setName(sc.next());
+			System.out.println("Enter employee Salary");
+			emp.setSalary(Double.parseDouble(sc.nextLine()));
+			System.out.println("Enter Designation");
+			emp.setDesignation(sc.nextLine());
+			emp.setInsuranceScheme(this.getInsuranceScheme(emp));
 		}
-		else if(salary>5000&&salary<20000) {
-			designation="System Associate";
+		catch(Exception e) {
+			e.printStackTrace();
 		}
-		else if(salary>20000&&salary<40000) {
-			designation="Programmer";
-		}
-		else {
-			designation="Manager";
-		}
-
-		Employee emp=new Employee(id,name,salary,designation);
-		return emp;
-
+		return null;
 	}
 
 	@Override
-	public String insuranceScheme(String designation, Double Salary) {
-
-		String scheme;
-		if(designation=="Clerk") {
-			scheme="No Scheme";
-		}
-		else if(designation=="System Associate") {
-			scheme="Scheme C";
-		}
-		else if(designation=="Programmer") {
-			scheme="Scheme B";
-		}
-		else {
-			scheme="Scheme A";
-		}
-		return scheme;
+	public insuranceScheme getInsuranceScheme(Employee emp) {
+		
+		Double salary=emp.getSalary();
+		String designation=emp.getDesignation();
+		
+		try {
+			if((salary>5000&&salary<2000)&& designation.equalsIgnoreCase("System Associate")){
+				return insuranceScheme.SCHEMEC;
+			}
+			else if((salary>=20000&&salary<40000)&& designation.equalsIgnoreCase("Programmer")){
+				return insuranceScheme.SCHEMEB;
+			}
+			else if((salary>=40000)&& designation.equalsIgnoreCase("Manager")) {
+				return insuranceScheme.SCHEMEA;
+			}
+			else if((salary<5000)&& designation.equalsIgnoreCase("Clerk")) {
+				return insuranceScheme.NOSCHEME;
+			}
+			return insuranceScheme.NOSCHEME;
+			}
+		catch(Exception e) {
+			e.printStackTrace();
+			}
+		return null;
 	}
 
 	@Override
 	public void EmpDetails(Employee emp) {
-
-		System.out.println("Employee id "+emp.getId());
-		System.out.println("Employee name "+emp.getName());
-		System.out.println("Employee salary "+emp.getSalary());
-		System.out.println("Employee Designation "+emp.getDesignation());
+		
+		try {
+			
+			System.out.println("Employee id "+emp.getId());
+			System.out.println("Employee name "+emp.getName());
+			System.out.println("Employee salary "+emp.getSalary());
+			System.out.println("Employee Designation "+emp.getDesignation());
+			System.out.println("Employee insuranceScheme "+emp.getScheme());
+			
+		}
+		catch(Exception e) {
+			
+			e.printStackTrace();
+		}
 	}
 }

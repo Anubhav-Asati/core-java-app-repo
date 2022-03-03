@@ -1,5 +1,7 @@
 package com.sapient.aem.bean;
 
+import com.sapient.aem.service.insuranceScheme;
+
 public class Employee {
 	
 	private Integer id;

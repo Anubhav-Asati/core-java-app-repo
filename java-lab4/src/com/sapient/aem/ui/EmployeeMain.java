@@ -1,34 +1,33 @@
 package com.sapient.aem.ui;
 
+import java.util.Scanner;
+
 import com.sapient.aem.bean.Employee;
-import com.sapient.aem.bean.insuranceScheme;
+import com.sapient.aem.service.EmployeeService;
 import com.sapient.aem.service.EmployeeServiceImpl;
+import com.sapient.aem.service.insuranceScheme;
 
 public class EmployeeMain {
-
+	
+	
+	private static final Integer size=100;
+	private static Employee employees[]= new Employee[size];
+	private static Scanner sc=new Scanner(System.in);
+	private static EmployeeService service= new EmployeeServiceImpl();
+	
 	public static void main(String[] args) {
 		
-		EmployeeServiceImpl emp=new EmployeeServiceImpl();
-		Employee emp1 = emp.getEmpDetails();
-		String scheme = emp.insuranceScheme(emp1.getDesignation(), emp1.getSalary());
-		Employee Person = new Employee(emp1.getId(),emp1.getName(),emp1.getSalary(),emp1.getDesignation());
-		emp.EmpDetails(Person);
-		System.out.println("Employee insuranceScheme:"+scheme);
-		emp1.setInsuranceScheme(insuranceScheme.SCHEMEA);
-		System.out.println("insuranceScheme: "+emp1.getScheme());
-		emp1.setInsuranceScheme(insuranceScheme.SCHEMEB);
-		System.out.println("insuranceScheme: "+emp1.getScheme());
-		emp1.setInsuranceScheme(insuranceScheme.SCHEMEC);
-		System.out.println("insuranceScheme: "+emp1.getScheme());
-		emp1.setInsuranceScheme(insuranceScheme.NOSCHEME);
-		System.out.println("insuranceScheme: "+emp1.getScheme());
-		
-		for(insuranceScheme is: insuranceScheme.values()) {
-			System.out.println(is.name()+","+is.ordinal());
+		System.out.println("Enter number of employees upto maximum "+size);
+		int nemps=Integer.parseInt(sc.nextLine());
+		for(int i=0;i<nemps;i++) {
+			employees[i]=service.getEmpDetails();
 		}
-		
-		
-
+		System.out.println("All Employee Details");
+		//for(int i=0;i<nemps;i++) {
+		//	service.EmpDetails(employees[i]);
+		//}
+		for(Employee e:employees) {
+			service.EmpDetails(e);
+		}
 	}
-
 }
